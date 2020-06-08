@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 
 const userRouter = require('./routes/userRouter');
+const bookRouter = require('./routes/bookRouter');
 const categoryRouter = require('./routes/categoryRouter');
 
 const app = express();
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRouter);
+app.use('/api/books', bookRouter);
 app.use('/api/categories', categoryRouter);
 
 app.listen(process.env.Port,  () => {
