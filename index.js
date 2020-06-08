@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 
+const userRouter = require('./routes/userRouter');
 const categoryRouter = require('./routes/categoryRouter');
 
 const app = express();
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
     res.send('Welcome To My App, Stranger!!!');
 });
 
+app.use('/api/users', userRouter);
 app.use('/api/categories', categoryRouter);
 
 app.listen(process.env.Port,  () => {

@@ -33,5 +33,4 @@ router.route('/:category_id')
     next();
 })
 
-
 module.exports = router;
