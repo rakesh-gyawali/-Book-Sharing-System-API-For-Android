@@ -1,36 +1,52 @@
 const express = require('express');
 const router = express.Router();
-
+const Category = require('../models/Category')
+//Havent Tested After Creating Model !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 router.route('/')
 .get((req, res, next) => {
-    res.send('Get is working!!');
-    next();
+    Category.find({})
+    .then(categories => {
+        res.status(200).json(categories);
+    }).catch(next);
 })
 
 .post((req, res, next) => {
-    res.send('Post is working');
-    next();
+    Category.create(req.body)
+    .then(category => {
+        res.status(201).json(category);
+    }).catch(next);
+  
 })
 
 .delete((req, res, next) => {
-    res.send('Delete is working');
-    next();
+    Category.deleteMany({})
+    .then(reply => {
+        res.status(200).json(reply);
+    }).catch(next);
+  
 })
 
 router.route('/:category_id')
 .get((req, res, next) => {
-    res.send('/:category_id: Get is working!!');
-    next();
+    Category.findById(req.params.category_id)
+    .then(category => {
+        res.status(200).json(category);
+    }).catch(next);
+
 })
 
 .put((req, res, next) => {
-    res.send('/:category_id: Put is working');
-    next();
+    Category.findByIdAndUpdate(req.params.category_id, {$set: req.body}, {new: true})
+    .then(updatedCategory => {
+        res.status(200).send(updatedCategory);
+    }).catch(next);
 })
 
 .delete((req, res, next) => {
-    res.send('/:category_id: Delete is working');
-    next();
+    Category.findByIdAndRemove(req.params.category_id)
+    .then(reply => {
+        res.json(reply);
+    }).catch(next);
 })
 
 module.exports = router;
