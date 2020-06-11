@@ -20,7 +20,8 @@ const reviewSchema = new Schema({
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        minlength: 5
     },
     password: {
         type: String,
@@ -77,3 +78,5 @@ const userSchema = new mongoose.Schema({
     },
     reviews: [ reviewSchema ]
 }, { timestamps: true });
+
+module.exports = mongoose.model('User', userSchema);
