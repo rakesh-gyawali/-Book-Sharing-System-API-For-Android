@@ -22,8 +22,7 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String,
-        required: false
+        type: String
     },
     condition: {
         type: String,
@@ -39,6 +38,11 @@ const bookSchema = new mongoose.Schema({
     category: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Category',
+        required: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     }
 })
