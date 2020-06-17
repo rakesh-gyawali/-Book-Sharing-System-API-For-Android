@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const inquirySchema = new mongoose.Schema({
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    inquiry: {
+        type: String,
+        required: true
+    }
+}, {timestamps: true});
+
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -32,7 +43,7 @@ const bookSchema = new mongoose.Schema({
         type: String,
         enum: ['Near my area', 'Within city', 'All over Nepal']
     },
-    homeDeliver: {
+    homeDelivery: {
         type: Boolean
     },
     category: {
@@ -40,11 +51,12 @@ const bookSchema = new mongoose.Schema({
         ref: 'Category',
         required: true
     },
-    user: {
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    inquiries: [ inquirySchema ]
 })
 
 exports = mongoose.model('Book', bookSchema);
