@@ -5,6 +5,7 @@ require('dotenv').config();
 const userRouter = require('./routes/userRouter');
 const bookRouter = require('./routes/bookRouter');
 const categoryRouter = require('./routes/categoryRouter');
+const districtRouter = require('./routes/districtRouter');
 
 const app = express();
 mongoose.connect(process.env.DbURI,{
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/books', bookRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/districts', districtRouter);
 
 app.listen(process.env.Port,  () => {
     console.log(`Server is running at localhost:${process.env.Port}`);
