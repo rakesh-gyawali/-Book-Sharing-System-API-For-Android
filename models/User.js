@@ -18,36 +18,40 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
+    address: {
+        streetAddress: {
+            type: String,
+            required: true
+        },
+        cityName: {
+            type: String,
+            required: true
+        },
+        areaLocation: {    //Value need to ne inserted before creation of User.
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'District'
+        }
     },
-    streetAddress: {
-        type: String,
-        required: true
-    },
-    cityName: {
-        type: String,
-        required: true
-    },
-    areaLocation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'District'
-    },
-    hidePhone: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
-    overallRating: {
-        type: Number,
-        min:0,
-        max:5,
-        default: 0
+    contact: { 
+        mobileNo: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
+        },
+        phoneNo: {
+            type: String,
+            required: true
+        },
+        hidePhone: {
+            type: Boolean,
+            required: true
+        }
     },
     profilePhoto: {
         type: String,
-        required: false
     },
     role: {
         type: String,
@@ -58,7 +62,11 @@ const userSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         default: 0
-    }   
+    }, 
+    postedBooks: [{  //One to Many relation: embedding ref into array of one side.
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

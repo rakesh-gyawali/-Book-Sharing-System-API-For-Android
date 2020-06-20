@@ -8,8 +8,12 @@ const inquirySchema = new mongoose.Schema({
     inquiry: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
-}, {timestamps: true});
+});
 
 const bookSchema = new mongoose.Schema({
     title: {
@@ -17,7 +21,7 @@ const bookSchema = new mongoose.Schema({
         maxlength: 100,
         required: true,
     },
-    ISBN: {
+    isbn: {
         type: String,
         minlength: 10,
         maxlength: 13
@@ -33,7 +37,17 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String
+        type: String,
+        required: true
+    },
+    language: {
+        type: String,
+        maxlength: 10,
+        required: true
+    },
+    totalPage: {
+        type: Number,
+        max: 1000
     },
     condition: {
         type: String,
@@ -44,19 +58,16 @@ const bookSchema = new mongoose.Schema({
         enum: ['Near my area', 'Within city', 'All over Nepal']
     },
     homeDelivery: {
-        type: Boolean
+        type: Boolean,
+        required: true
     },
-    category: {
-        type: mongoose.Schema.Types.ObjectId, 
+    category: {  // reference: One to Squillion
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    inquiries: [ inquirySchema ]
-})
+    inquiries: [ inquirySchema ] //Embedding: One to few
+},
+{timestamps: true});
 
-exports = mongoose.model('Book', bookSchema);
+exports = mongoose.model('Book', bookSchema); 
