@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const router = express.Router();
 
@@ -6,6 +7,7 @@ router.get('/', (req, res, next) => {
     res.send('All  Users Will be Displayed Here');
 });
 
+//Register:Test Done!!
 router.post('/register', (req, res, next) => {
     let {
         username,
