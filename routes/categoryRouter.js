@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Category = require('../models/Category')
-//Havent Tested After Creating Model !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//Done Testing Jun 20!!
 router.route('/')
 .get((req, res, next) => {
     Category.find({})
