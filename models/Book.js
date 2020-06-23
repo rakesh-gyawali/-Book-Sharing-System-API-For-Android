@@ -16,7 +16,7 @@ const inquirySchema = new mongoose.Schema({
 });
 
 const bookSchema = new mongoose.Schema({
-    title: {
+title: {
         type: String,
         maxlength: 100,
         required: true,
@@ -70,4 +70,4 @@ const bookSchema = new mongoose.Schema({
 },
 {timestamps: true});
 
-exports = mongoose.model('Book', bookSchema); 
+module.exports = mongoose.model('Book', bookSchema); 

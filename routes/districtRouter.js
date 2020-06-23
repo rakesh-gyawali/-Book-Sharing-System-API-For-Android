@@ -8,13 +8,13 @@ router.route('/')
 .get((req, res, next) =>{
     District.find()
     .then((districts) => {
-        res.json(districts);
-    }).catch(err => next(err));
+        res.status(200).json(districts); //status = success!
+    }).catch(next);
 })
 .post((req, res, next) => {
     District.create(req.body)
     .then(district => {
-        res.status(201).json(district);
+        res.status(201).json(district);//status = created!!
     }).catch(err => next(err));
 })
 
