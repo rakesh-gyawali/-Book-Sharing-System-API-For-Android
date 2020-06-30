@@ -8,8 +8,8 @@ router.get('/', (req, res, next) => {
     res.send('All  Users Will be Displayed Here');
 });
 
-//Register:Test Done!!
-//Login: Test Done !!(Jwt token in generated successfully!)
+// Register:Test Done!!
+// Login: Test Done !!(Jwt token in generated successfully!)
 router.post('/register', (req, res, next) => {
     let {
         username,
@@ -20,37 +20,49 @@ router.post('/register', (req, res, next) => {
         contact,
         profilePhoto,
         role
-    } = req.body;
-    User.findOne({username})
-    .then(user => {
+	} = req.body;
+	
+	User.findOne({username})
+	.then(user => {
         if (user) {
             let err = new Error('User already exists!');
             err.status = 401;
             return next(err);
+        } else {
+            bcrypt.hash(password, 10, (err, hash) => {
+                if (err) 
+                    next(err);
+                
+                User.create({
+                    username,
+                    password: hash,
+                    firstName,
+                    lastName,
+                    address,
+                    contact,
+                    profilePhoto,
+                    role
+                }).then(user => {
+					res.status(201).json(`Registration of username: ${username} is done!`);
+					
+                }).catch(err);
+            });
         }
-        
-        bcrypt.hash(password, 10, (err, hash) => {
-            if (err) next(err);
-            User.create({username, password: hash, firstName, lastName, address, contact, profilePhoto, role})
-            .then(user => {
-                res.json('Status: Registration Successful! ');
-            }).catch(err);
-        }); 
     })
 });
 
 router.post('/login', (req, res, next) => {
-    let { username, password } = req.body;
-    User.findOne({username})
-    .then(user => {
-        if(!user) {
+    let {username, password} = req.body;
+	User.findOne({username})
+	.then(user => {
+        if (!user) {
             let err = new Error('User not found!');
             err.status = 401;
             return next(err);
-        } 
+        }
 
-        bcrypt.compare(password, user.password) //comparing pass from user input and from database.
-        .then(isMatched => {
+		bcrypt.compare(password, user.password) // comparing pass from user input and from database.
+		.then(isMatched => {
             if (!isMatched) {
                 let err = new Error('Password does not match!');
                 err.status = 404;
@@ -63,20 +75,17 @@ router.post('/login', (req, res, next) => {
                 lastName: user.lastName,
                 role: user.role
             }
-            //Token is created here.
             jwt.sign(payload, process.env.SECRET, (err, token) => {
                 if (err) {
                     return next(err);
                 }
-                res.json({
-                    status: 'Login Sucessful',
-                    token: `Bearer ${token}`
-                })
+                res.json({status: 'Login Sucessful', token: `Bearer ${token}`})
             });
 
         }).catch(next);
-    
-    }).catch(next);
-})
+
+	}).catch(next);
+});
+
 
 module.exports = router;
