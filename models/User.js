@@ -55,8 +55,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'basic',
-        enum: ['basic', 'manager', 'admin']
+        default: 'normal',
+        enum: ['normal', 'admin']
     },
     numberOfAdsPosted: {
         type: Number,

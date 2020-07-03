@@ -51,7 +51,7 @@ title: {
     },
     condition: {
         type: String,
-        enum: ['New', 'Good', 'Not bad', 'Bad']
+        enum: ['New', 'Old']
     },
     deliveryArea: {
         type: String,
