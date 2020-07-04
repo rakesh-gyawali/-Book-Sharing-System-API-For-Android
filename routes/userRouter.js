@@ -14,11 +14,8 @@ router.post('/register', (req, res, next) => {
     let {
         username,
         password,
-        firstName,
-        lastName,
-        address,
-        contact,
-        profilePhoto,
+		profile,
+		email,
         role
 	} = req.body;
 	
@@ -35,13 +32,11 @@ router.post('/register', (req, res, next) => {
                 
                 User.create({
                     username,
-                    password: hash,
-                    firstName,
-                    lastName,
-                    address,
-                    contact,
-                    profilePhoto,
-                    role
+					password: hash,
+					profile,
+					email,
+					role,
+					
                 }).then(user => {
 					res.status(201).json(`Registration of username: ${username} is done!`);
 					

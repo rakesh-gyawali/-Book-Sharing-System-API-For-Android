@@ -9,8 +9,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    firstName: {
+	},
+	email: {
+		type: String,
+		required: true
+	},
+	firstName: {
         type: String,
         required: true
     },
@@ -37,10 +41,6 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        email: {
-            type: String,
-            required: true
-        },
         phoneNo: {
             type: String,
             required: true
@@ -53,12 +53,12 @@ const userSchema = new mongoose.Schema({
     profilePhoto: {
         type: String,
     },
-    role: {
+	role: {
         type: String,
         default: 'normal',
         enum: ['normal', 'admin']
-    },
-    numberOfAdsPosted: {
+	},
+	numberOfActiveAds: {
         type: Number,
         min: 0,
         default: 0
@@ -66,7 +66,7 @@ const userSchema = new mongoose.Schema({
     postedBooks: [{  //One to Many relation: embedding ref into array of one side.
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book'
-    }]
+	}]
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
