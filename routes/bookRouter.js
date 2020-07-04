@@ -14,12 +14,13 @@ router.route('/')
 })
     
 .post((req, res, next) => {
+
     const book = {
         title, isbn, author, publication, 
         image, language, totalPage, 
         condition, homeDelivery, category
-    } = req.body;
-
+	} = req.body;
+	
     Book.create(book)
     .then((book) => {
         res.status(201).json(book);
