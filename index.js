@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const userRouter = require('./routes/userRouter');
+const profileRouter = require('./routes/profileRouter');
 const bookRouter = require('./routes/bookRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const districtRouter = require('./routes/districtRouter');
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRouter);
+app.use('/api/profiles', profileRouter);
 app.use('/api/books', bookRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/districts', districtRouter);

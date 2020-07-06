@@ -47,6 +47,6 @@ router.route('/:category_id')
     .then(reply => {
         res.json(reply);
     }).catch(next);
-})
+});
 
 module.exports = router;

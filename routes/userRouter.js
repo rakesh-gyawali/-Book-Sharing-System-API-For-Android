@@ -5,8 +5,20 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    res.send('All  Users Will be Displayed Here');
+	User.find({})
+	.then(Users => {
+		res.status(200).json(Users);
+	}).catch(next);
 });
+
+router.get('/:userId', (req, res, next) => {
+	User.findById(req.params.userId)
+	.then(User => {
+		res.status(200).json(User);
+	}).catch(next);
+});
+
+
 
 // Register:Test Done!!
 // Login: Test Done !!(Jwt token in generated successfully!)
@@ -14,7 +26,6 @@ router.post('/register', (req, res, next) => {
     let {
         username,
         password,
-		profile,
 		email,
         role
 	} = req.body;
@@ -45,6 +56,25 @@ router.post('/register', (req, res, next) => {
         }
     })
 });
+
+router.put('/register/:userId', (req, res, next) => {
+	const profile = {
+		firstName, lastName, address,
+		contact, profiePhoto
+	} = req.body;
+
+	User.findById(req.params.UserId)
+	.then(user => {
+		user.profile = profile;
+	});
+
+
+
+});
+
+
+
+
 
 router.post('/login', (req, res, next) => {
     let {username, password} = req.body;
