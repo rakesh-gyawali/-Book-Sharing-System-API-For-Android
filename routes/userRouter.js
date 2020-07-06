@@ -57,25 +57,6 @@ router.post('/register', (req, res, next) => {
     })
 });
 
-router.put('/register/:userId', (req, res, next) => {
-	const profile = {
-		firstName, lastName, address,
-		contact, profiePhoto
-	} = req.body;
-
-	User.findById(req.params.UserId)
-	.then(user => {
-		user.profile = profile;
-	});
-
-
-
-});
-
-
-
-
-
 router.post('/login', (req, res, next) => {
     let {username, password} = req.body;
 	User.findOne({username})
