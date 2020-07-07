@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Profile = require('./Profile');
+const User = require('./User');
 
 const inquirySchema = new mongoose.Schema({
     author: {
@@ -70,7 +70,8 @@ title: {
 	inquiries: [ inquirySchema ], //Embedding: One to few
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: Profile
+		ref: User,
+		required: true
 	}
 },
 {timestamps: true});

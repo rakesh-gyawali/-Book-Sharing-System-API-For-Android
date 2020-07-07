@@ -7,18 +7,20 @@ const auth = require('./authentication');
 
 router.route('/')
 .get((req, res, next) => {
-    Book.find()
+	Book.find()
+	.populate('category')
+	.populate('owner')
     .then((books) => {
         res.status(200).json(books);
     }).catch(next);
 })
     
 .post((req, res, next) => {
-
     const book = {
         title, isbn, author, publication, 
         image, language, totalPage, 
-        condition, homeDelivery, category
+		condition, homeDelivery, category,
+		owner
 	} = req.body;
 	
     Book.create(book)
@@ -36,7 +38,9 @@ router.route('/')
 
 router.route('/:book_id')
 .get((req, res, next) => {
-    Book.findById(req.params.book_id)
+	Book.findById(req.params.book_id)
+	.populate('category')
+	.populate('owner')
     .then(book => {
         res.status(200).json(book);
     }).catch(next);
@@ -45,7 +49,7 @@ router.route('/:book_id')
     const book = {
         title, isbn, author, publication, 
         image, language, totalPage, 
-        condition, homeDelivery, category
+		condition, homeDelivery, category
     } = req.body;
     Book.findByIdAndUpdate(req.params.book_id, {$set: book}, {new: true})
     .then(book => {

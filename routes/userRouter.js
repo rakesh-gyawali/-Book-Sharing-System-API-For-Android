@@ -3,22 +3,23 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-
-router.get('/', (req, res, next) => {
+//.get Tests done!!
+router.route('/')
+.get((req, res, next) => {
 	User.find({})
 	.then(Users => {
 		res.status(200).json(Users);
 	}).catch(next);
 });
 
-router.get('/:userId', (req, res, next) => {
-	User.findById(req.params.userId)
+router.route('/:user_id')
+.get((req, res, next) => {
+	User.findById(req.params.user_id)
+	.populate('profile')
 	.then(User => {
 		res.status(200).json(User);
 	}).catch(next);
 });
-
-
 
 // Register:Test Done!!
 // Login: Test Done !!(Jwt token in generated successfully!)
@@ -27,7 +28,8 @@ router.post('/register', (req, res, next) => {
         username,
         password,
 		email,
-        role
+		role, 
+		profile
 	} = req.body;
 	
 	User.findOne({username})
@@ -47,10 +49,10 @@ router.post('/register', (req, res, next) => {
 					profile,
 					email,
 					role,
+					profile
 					
                 }).then(user => {
 					res.status(201).json(`Registration of username: ${username} is done!`);
-					
                 }).catch(err);
             });
         }
@@ -77,9 +79,8 @@ router.post('/login', (req, res, next) => {
             let payload = {
                 id: user.id,
                 username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                role: user.role
+				role: user.role,
+				profile: user.profile
             }
             jwt.sign(payload, process.env.SECRET, (err, token) => {
                 if (err) {

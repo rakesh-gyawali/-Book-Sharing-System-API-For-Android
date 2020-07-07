@@ -24,7 +24,7 @@ function verifyUser(req, res, next) {
 
 function verifyOwnerOfInquiry(book, req) {
     if (req.user.id !== book.inquiries.author) {
-        let err = new Error('You are allowed to put/delete own inquiry only.');
+        let err = new Error('You are allowed to update/delete own inquiry only.');
         err.status = 401;
         return err;
     } else {

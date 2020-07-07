@@ -6,6 +6,7 @@ const router = express.Router();
 router.route('/')
 .get((req, res, next) => {
 	Profile.find()
+	.populate('address.areaLocation')
 	.then(profiles => res.status(200).json(profiles));
 })
 .post((req, res, next) => {
