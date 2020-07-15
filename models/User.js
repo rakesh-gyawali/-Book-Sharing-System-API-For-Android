@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Profile = require('./Profile');
+const Book = require('./Book');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema({
 		ref: Profile,
 		required: true
 	}
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

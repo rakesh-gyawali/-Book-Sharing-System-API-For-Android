@@ -70,8 +70,7 @@ title: {
 	inquiries: [ inquirySchema ], //Embedding: One to few
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: User,
-		required: true
+        ref: 'User'
 	}
 },
 {timestamps: true});

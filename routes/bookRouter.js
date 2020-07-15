@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../models/Book');
 const auth = require('./authentication');
+const User = require('../models/User');
 
-//-----------------------------Tested on June 24th after adding router upto book/book:id/inquiries/:inquiry_id ---------------------------
+//-----------------------------Tested on June 24th after adding router book/book:id/inquiries/:inquiry_id ---------------------------
 
 router.route('/')
 .get((req, res, next) => {
@@ -141,5 +142,7 @@ router.route("/:book_id/inquiries/:inquiry_id")
 })
 
 //------TESTED UPTO HERE---------
+
+
 
 module.exports = router;
