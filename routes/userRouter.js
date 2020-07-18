@@ -32,7 +32,7 @@ router.post('/register', (req, res, next) => {
 		profile
 	} = req.body;
 	
-	User.findOne({username})
+	User.findById({username})
 	.then(user => {
         if (user) {
             let err = new Error('User already exists!');
@@ -46,7 +46,6 @@ router.post('/register', (req, res, next) => {
                 User.create({
                     username,
 					password: hash,
-					profile,
 					email,
 					role,
 					profile

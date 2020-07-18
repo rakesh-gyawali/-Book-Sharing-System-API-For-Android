@@ -22,17 +22,43 @@ function verifyUser(req, res, next) {
     })
 };
 
-function verifyOwnerOfInquiry(book, req) {
-    if (req.user.id !== book.inquiries.author) {
+function verifyAdmin(req, res, next) {
+	console.log(req.user);
+    if (!req.user) {
+        let err = new Error('No authentication information');
+        err.status = 401;
+        return next(err);
+    }
+    if (req.user.role !== 'admin') {
+        let err = new Error('Forbidden');
+        err.status = 403;
+        return next(err);
+    }
+    next();
+}
+
+function verifyOwnerOfInquiry(inquiryAuthor, user_id) {
+	console.log(inquiryAuthor  + " " + user_id);
+	
+    if (inquiryAuthor.toString() !== user_id) {
         let err = new Error('You are allowed to update/delete own inquiry only.');
         err.status = 401;
         return err;
-    } else {
-		return;
-	}
+    } 
+	return;	
 };
 
+function verifyOwnerOfBook(owner, user_id) {
+	// console.log(typeof(owner) + " " + typeof(user_id));
+	// console.log(owner.toString() +" " + user_id);
+	if (owner.toString() !== user_id) {
+        let err = new Error('You are allowed to update/delete own book only.');
+        err.status = 401;
+        return err;
+    }
+	return;
+}
 
 module.exports = {
-    verifyUser, verifyOwnerOfInquiry
+    verifyUser, verifyAdmin, verifyOwnerOfBook, verifyOwnerOfInquiry
 }
