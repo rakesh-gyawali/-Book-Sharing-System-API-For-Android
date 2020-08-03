@@ -9,34 +9,24 @@ const profileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-	address: {
-		streetAddress: {
-			type: String,
-			required: true
-		},
-		cityName: {
-			type: String,
-			required: true
-		},
-		areaLocation: {    //Value need to ne inserted before creation of User.
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'District',
-			required: true
-		}
+	streetAddress: {
+		type: String,
+		required: true
 	},
-	contact: { 
-		mobileNo: {
-			type: String,
-			required: true
-		},
-		phoneNo: {
-			type: String,
-			required: true
-		},
-		hidePhone: {
-			type: Boolean,
-			required: true
-		}
+	cityName: {
+		type: String,
+		required: true
+	},
+	district: {
+		type: String,
+		required: true
+	},
+	phoneNo: {
+		type: String,
+	},
+	hidePhone: {
+		type: Boolean,
+		required: true
 	},
 	profilePhoto: {
 		type: String,
