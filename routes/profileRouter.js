@@ -1,18 +1,20 @@
 const express = require('express');
 const Profile = require('../models/Profile.js');
 const router = express.Router();
+const path = require('path');
+
 //Done Testing Jul 6th
 
 router.route('/')
 .get((req, res, next) => {
 	Profile.find()
-	.populate('address.areaLocation')
 	.then(profiles => res.status(200).json(profiles));
 })
 .post((req, res, next) => {
 	const profile = {
-		firstName, lastName, address,
-		contact, profiePhoto
+		firstName, lastName, streetAddress, cityName, district,
+	    profiePhoto, phoneNo,
+		hidePhone, 
 	} = req.body;
 
 	Profile.create(profile)
@@ -27,13 +29,17 @@ router.route('/')
 router.route('/:profile_id')
 .get((req, res, next) => {
 	Profile.findById(req.params.profile_id)
-	.then(profile => res.status(200).json(profile))
+	.then(profile => {
+		res.status(200).json(profile);
+	})
 	.catch(next);
 })
 .put((req, res, next) => {
 	const profile = {
-		firstName, lastName, address,
-		contact, profilePhoto
+		firstName, lastName, streetAddress,
+		cityName, district, phoneNo,
+		hidePhone, 
+		profilePhoto
 		} = req.body;	
 
 	Profile.findByIdAndUpdate(req.params.profile_id, {$set: profile}, {new: true})
