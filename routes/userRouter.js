@@ -51,7 +51,7 @@ router.post('/register', (req, res, next) => {
 					profile
 					
                 }).then(user => {
-					res.status(201).json(`Registration of username: ${username} is done!`);
+					res.status(201).json({status: "register success!"});
                 }).catch(next);
             });
         }
@@ -59,7 +59,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-    let {username, password} = req.body;
+	let {username, password} = req.body;
 	User.findOne({username})
 	.then(user => {
         if (!user) {
@@ -76,16 +76,16 @@ router.post('/login', (req, res, next) => {
                 return next(err);
             }
             let payload = {
-                id: user.id,
                 username: user.username,
 				role: user.role,
-				profile: user.profile
+				profile: user.profile,
+				id: user.id
 			}
             jwt.sign(payload, process.env.SECRET, (err, token) => {
                 if (err) {
                     return next(err);
                 }
-                res.json({status: 'Login Sucessful', token: `Bearer ${token}`})
+                res.json({status: 'Login Sucessful', token: `Bearer ${token}`, id: user.id})
             });
 
         }).catch(next);

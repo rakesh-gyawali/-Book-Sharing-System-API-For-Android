@@ -26,6 +26,7 @@ const profileSchema = new mongoose.Schema({
 	},
 	hidePhone: {
 		type: Boolean,
+	default: true,
 		required: true
 	},
 	profilePhoto: {
