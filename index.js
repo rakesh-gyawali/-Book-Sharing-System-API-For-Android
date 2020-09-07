@@ -9,7 +9,7 @@ const userRouter = require('./routes/userRouter');
 const profileRouter = require	('./routes/profileRouter');
 const bookRouter = require('./routes/bookRouter');
 const userBookRouter = require('./routes/userBookRouter');
-const categoryRouter = require('./routes/categoryRouter');
+// const categoryRouter = require('./routes/categoryRouter');
 const uploadRouter = require('./routes/upload');
 
 const app = express();
@@ -34,7 +34,7 @@ app.use('/api/users', userRouter);
 app.use('/api/profiles', profileRouter);
 app.use('/api/books', bookRouter);
 app.use('/api/userbook', userBookRouter);
-app.use('/api/categories', categoryRouter);
+// app.use('/api/categories', categoryRouter);
 app.use('/api/uploads', uploadRouter); //auth.verifyUser havent implemented yet!!!
 
 app.use((req, res, next) =>  {

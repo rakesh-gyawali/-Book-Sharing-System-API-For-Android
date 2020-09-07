@@ -68,7 +68,7 @@ router.post('/login', (req, res, next) => {
             return next(err);
         }
 
-		bcrypt.compare(password, user.password) // comparing pass from user input and from database.
+		bcrypt.compare(password, user.password) 
 		.then(isMatched => {
             if (!isMatched) {
                 let err = new Error('Password does not match!');

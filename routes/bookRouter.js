@@ -25,14 +25,6 @@ router.route('/')
     .then((book) => {
         res.status(201).json(book);
     }).catch(next);
-})
-
-//Havent Done Debug .delete
-.delete(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
-    Book.deleteMany()
-    .then(reply => {
-        res.status(200).json(reply);
-    }).catch(next);
 });
 //Done Debug
 router.route('/:book_id')
@@ -78,9 +70,5 @@ router.route('/:book_id')
 			})
 	}).catch(next);
 });	
-
-
-
-//------Done Debug UPTO HERE---------
 
 module.exports = router;
